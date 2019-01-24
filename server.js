@@ -49,4 +49,19 @@ app.get("/api/sets", function(req, res) {
 });
 
 app.post("/api/sets", function(req, res) {
+
+  var newSet = req.body;
+  newSet.createDate = new Date();
+  if (!req.body.setid) {
+    handleError(res, "Invalid user input", "Must provide a setId.", 400);
+  } else {
+    db.collection(SETS_COLLECTION).insertOne(newSet, function(err, doc) {
+      if (err) {
+        handleError(res, err.message, "Failed to create new set.");
+      } else {
+        res.status(201).json(doc.ops[0]);
+      }
+    });
+  }
+
 });
