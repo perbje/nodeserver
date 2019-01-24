@@ -1,16 +1,21 @@
 {
   "name": "nodeserver",
   "version": "1.0.0",
-  "description": "Test",
-  "main": "index.js",
+  "description": "server for my Lego Sets",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/perbje/nodeserver.git"
+  },
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "mongodb": "^3.1.13",
     "npm": "^6.6.0"
