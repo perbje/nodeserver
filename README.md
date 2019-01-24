@@ -1,18 +1,18 @@
-# nodeserver
+# Nodeserver
 
-**Prerequisites**
+##Prerequisites
 
 Mongodb `sudo apt install -y mongodb`
 
-Import data:
+Importing data:
 
 `mongoimport --db lego --collection legosets --file data/legoimport.json --jsonArray `
 
-**Run**
+##Run
 
 `npm install`
 
 `npm start`
 
-Kjører default på localhost:3000
+Default on localhost:3000/api
 
