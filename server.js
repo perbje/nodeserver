@@ -49,7 +49,6 @@ app.get("/api/sets", function(req, res) {
 });
 
 app.post("/api/sets", function(req, res) {
-
   var newSet = req.body;
   newSet.createDate = new Date();
   if (!req.body.setid) {
@@ -63,5 +62,37 @@ app.post("/api/sets", function(req, res) {
       }
     });
   }
+});
 
+app.get("/api/sets/:id", function(req, res) {
+  db.collection(SETS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to get set");
+    } else {
+      res.status(200).json(doc);
+    }
+  });
+});
+
+app.put("/api/sets/:id", function(req, res) {
+  var updateDoc = req.body;
+  delete updateDoc._id;
+  db.collection(SETS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to update set");
+    } else {
+      updateDoc._id = req.params.id;
+      res.status(200).json(updateDoc);
+    }
+  });
+});
+
+app.delete("/api/sets/:id", function(req, res) {
+  db.collection(SETS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+    if (err) {
+      handleError(res, err.message, "Failed to delete set");
+    } else {
+      res.status(200).json(req.params.id);
+    }
+  });
 });
