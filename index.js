@@ -16,3 +16,16 @@ app.get('/', function(req, res) {
 var port = process.env.PORT || 3000;
 app.listen(port);
 console.log('Listening on localhost:'+ port);
+
+
+// Generic error handler used by all endpoints.
+function handleError(res, reason, message, code) {
+  console.log("ERROR: " + reason);
+  res.status(code || 500).json({"error": message});
+}
+
+app.get("/api/sets", function(req, res) {
+});
+
+app.post("/api/sets", function(req, res) {
+});
