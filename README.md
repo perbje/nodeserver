@@ -1,4 +1,4 @@
-# Nodeserver
+# legosets-API
 
 ##Prerequisites
 
