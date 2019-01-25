@@ -1,4 +1,4 @@
-# legosets-API
+# Legosets-API
 
 ##Prerequisites
 
