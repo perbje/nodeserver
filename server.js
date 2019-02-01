@@ -30,7 +30,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:2701
 
 // Routes
 app.get('/', function (req, res) {
-    res.send('Hello PER!');
+    res.send('Pers lego-api');
 });
 
 // Generic error handler used by all endpoints.

@@ -8,6 +8,16 @@ Importing data:
 
 `mongoimport --db lego --collection legosets --file data/legoimport.json --jsonArray`
 
+## bruke mlab database:
+
+Opprette .env-fil med innhold:
+
+`MONGODB_URI=mongodb://<username>:<password>@ds119445.mlab.com:19445/mylegosets`
+
+Importing data to mlab:
+
+`mongoimport -h ds119445.mlab.com:19445 -d mylegosets -c legosets -u USERNAME -p PASSWORD --file data/legoimport.json --jsonArray`
+
 ##Run
 
 `npm install`
@@ -27,3 +37,6 @@ evt. sett Content-Type application/json i headers
 
 Markdown
 (linebreaks: two spaces)
+
+
+

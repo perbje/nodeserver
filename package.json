@@ -4,7 +4,7 @@
   "description": "server for my Lego Sets",
   "repository": {
     "type": "git",
-    "url": "https://github.com/perbje/nodeserver.git"
+    "url": "https://github.com/placbo/mylegosets-api.git"
   },
   "main": "server.js",
   "scripts": {
