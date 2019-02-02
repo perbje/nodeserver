@@ -16,7 +16,7 @@ Opprette .env-fil med innhold:
 
 Importing data to mlab:
 
-`mongoimport -h ds119445.mlab.com:19445 -d mylegosets -c legosets -u USERNAME -p PASSWORD --file data/legoimport.json --jsonArray`
+`mongoimport -h ds161262.mlab.com:61262 -d heroku_lttmd0wz -c legosets -u USERNAME -p PASSWORD --file data/legoimport.json --jsonArray`
 
 ##Run
 
