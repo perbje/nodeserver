@@ -5,8 +5,10 @@ require('dotenv').config();
 var ObjectID = mongodb.ObjectID;
 var SETS_COLLECTION = "legosets";
 var db;
+var cors = require('cors')
 
-var app = express();
+var app = express()
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
