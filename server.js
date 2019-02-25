@@ -1,14 +1,18 @@
 var express = require('express');
 var bodyParser = require("body-parser");
+var jwt = require('jsonwebtoken');
 var mongodb = require("mongodb");
 require('dotenv').config();
 var ObjectID = mongodb.ObjectID;
 var SETS_COLLECTION = "legosets";
 var db;
-var cors = require('cors')
+var cors = require('cors');
+var app = express();
+var urlencodedParser = bodyParser.urlencoded({extended: false});
+var hash = require('hash.js');
+var mongoose = require('mongoose');
 
-var app = express()
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -41,7 +45,7 @@ function handleError(res, reason, message, code) {
     res.status(code || 500).json({"error": message});
 }
 
-app.get("/api/sets", function (req, res) {
+app.get("/api/sets", verifyToken, function (req, res) {
     db.collection(SETS_COLLECTION).find({}).toArray(function (err, docs) {
         if (err) {
             handleError(res, err.message, "Failed to get sets.");
@@ -68,13 +72,19 @@ app.post("/api/sets", function (req, res) {
 });
 
 app.get("/api/sets/:id", function (req, res) {
-    db.collection(SETS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function (err, doc) {
-        if (err) {
-            handleError(res, err.message, "Failed to get set");
-        } else {
-            res.status(200).json(doc);
-        }
-    });
+    if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+        db.collection(SETS_COLLECTION).findOne({
+            _id: new ObjectID(req.params.id)
+        }, function (err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to get set");
+            } else {
+                res.status(200).json(doc);
+            }
+        });
+    } else {
+        handleError(res, "Invalid user input", "Must provide a set valid Id.", 400);
+    }
 });
 
 app.put("/api/sets/:id", function (req, res) {
@@ -98,4 +108,42 @@ app.delete("/api/sets/:id", function (req, res) {
             res.status(200).json(req.params.id);
         }
     });
+});
+
+function verifyToken(req, res, next) {
+    var token = req.headers['x-access-token'];
+    if (!token) res.status(403).send({auth: false, message: 'No token provided.'});
+    jwt.verify(token, process.env.TOKEN_SECRET, function (err, decoded) {
+        if (err) res.status(500).send({auth: false, message: 'Failed to authenticate token.'});
+        req.userId = decoded.id;
+        next();
+    });
+}
+
+app.post('/login', urlencodedParser, function (req, res) {
+    var secret = hash.sha256().update(req.body.secret).digest('hex');
+    if (secret === process.env.LOGIN_SECRET) {
+        var token = jwt.sign({
+                iss: "www.kasselars.com",
+                sub: "mylegosets",
+                name: "PCB",
+                admin: true
+            }, process.env.TOKEN_SECRET, {
+                expiresIn: 86400 // expires in 24 hours
+            }
+        );
+        res.status(200).send({auth: true, token: token});
+    } else {
+        res.status(401).send({auth: false, message: 'Failed to log in'});
+    }
+});
+
+// Route not found (404)
+app.use(function(req, res, next) {
+    return res.status(404).send({ message: 'Route'+req.url+' Not found.' });
+});
+
+// 500 - Any server error
+app.use(function(err, req, res, next) {
+    return res.status(500).send({ error: err });
 });

@@ -2,7 +2,7 @@
 
 ##Prerequisites
 
-Mongodb `sudo apt install -y mongodb`
+Mongodb: `sudo apt install -y mongodb`
 
 Importing data:
 
@@ -12,7 +12,9 @@ Importing data:
 
 Opprette .env-fil med innhold:
 
-`MONGODB_URI=mongodb://<username>:<password>@ds119445.mlab.com:19445/mylegosets`
+    MONGODB_URI=mongodb://<username>:<password>@ds119445.mlab.com:19445/mylegosets
+    LOGIN_SECRET=<innloggingspassord for pcb, hashet>
+    TOKEN_SECRET=<tokensecret>
 
 Importing data to mlab:
 
@@ -26,16 +28,18 @@ Importing data to mlab:
 
 Default on localhost:3000/api
 
+-- Gjerne bruk nodemon:
+
+`sudo npm install -g nodemon`
+
+`nodemon server.js`
+
+
 ##Teste API i postman
 
-POST: localhost:3000/api/sets
+Lagret eksempler under egen collection
 
-sett Body: Raw (application/json)  
-`{"setid": "4111343243242"}`  
-evt. sett Content-Type application/json i headers
-
-
-Markdown
+##Markdown
 (linebreaks: two spaces)
 
 
