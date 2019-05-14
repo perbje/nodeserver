@@ -3,6 +3,7 @@
 MyLegoSets is a small webapp for storing a single persons lego sets.
 
 This project contains the API written using Node.js. It uses a mongoDB nosql-database. Security via JWT.
+Built and served with Heroku: https://dashboard.heroku.com/apps/mylegosets-api
 
 The frontend project is located: https://github.com/placbo/legosets-gui-react.
 
