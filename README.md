@@ -14,6 +14,10 @@ JWT: Jason web token.
 
 ----------------------------
 
+TODO: Oppsett heroku, oppsett mlab.
+
+----------------------------
+
 ##Prerequisites
 
 Mongodb: `sudo apt install -y mongodb`
