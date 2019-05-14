@@ -1,5 +1,18 @@
 # Legosets-API
 
+MyLegoSets is a small webapp for storing a single persons lego sets.
+
+This project contains the API written using Node.js. It uses a mongoDB nosql-database. Security via JWT.
+
+The frontend project is located: https://github.com/placbo/legosets-gui-react.
+
+mLab: Database-as-a-Service for MongoDB.  
+MongoDB: a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with schemata.  
+Heruko: Heroku is a cloud platform as a service (PaaS)
+JWT: Jason web token. 
+
+----------------------------
+
 ##Prerequisites
 
 Mongodb: `sudo apt install -y mongodb`
